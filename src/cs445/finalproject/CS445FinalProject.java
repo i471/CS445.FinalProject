@@ -1,6 +1,6 @@
 /***************************************************************
 * file: CS445FinalProject.java
-* author: Robert Gil, Albert Gil, Ben , Nathaniel
+* author: Robert Gil, Albert Gil, Benjamin Krueper , Nathaniel Krueper
 * class: CS 445 – Computer Graphics
 *
 * assignment: Quarter Project
