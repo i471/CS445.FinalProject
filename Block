@@ -1,0 +1,148 @@
+
+package FinalProject;
+
+import static org.lwjgl.opengl.GL11.GL_LINE_LOOP;
+import static org.lwjgl.opengl.GL11.GL_QUADS;
+import static org.lwjgl.opengl.GL11.glBegin;
+import static org.lwjgl.opengl.GL11.glColor3f;
+import static org.lwjgl.opengl.GL11.glEnd;
+import static org.lwjgl.opengl.GL11.glVertex3f;
+import org.lwjgl.util.vector.Vector3f;
+
+
+public class Block {
+    
+    
+    
+    public float x = 0.0f;
+    public float y = 0.0f;
+    public float z = 0.0f;
+    
+    
+    //public Block(float x, float y, float z){
+    //    this.x = x;
+    //    this.y = y;
+    //    this.z = z;
+    //}
+    
+    
+    public void render() {
+        System.out.println("x: " + x + "  y: " + y + "  z: " + z);
+        //renderEdges(position);
+        renderFaces();
+    }
+    
+    private void renderFaces(){
+        try{
+            glBegin(GL_QUADS);
+            //Top
+            
+            //if (y < -1){
+                glColor3f(0.0f,0.0f,1.0f);
+                glVertex3f( 1.0f, 1.0f,-1.0f);
+                glVertex3f(-1.0f, 1.0f,-1.0f);
+                glVertex3f(-1.0f, 1.0f, 1.0f);
+                glVertex3f( 1.0f, 1.0f, 1.0f);
+            //}
+            //Bottom
+            //if (y > 1){
+                glColor3f(1.0f,0.0f,0.0f);
+                glVertex3f( 1.0f,-1.0f, 1.0f);
+                glVertex3f(-1.0f,-1.0f, 1.0f);
+                glVertex3f(-1.0f,-1.0f,-1.0f);
+                glVertex3f( 1.0f,-1.0f,-1.0f);
+            //}
+            //Front
+            //if (z > 1){
+                glColor3f(1.0f,1.0f,0.0f);
+                glVertex3f( 1.0f, 1.0f, 1.0f);
+                glVertex3f(-1.0f, 1.0f, 1.0f);
+                glVertex3f(-1.0f,-1.0f, 1.0f);
+                glVertex3f( 1.0f,-1.0f, 1.0f);
+            //}
+            //Back
+            //if (z < -1){
+                glColor3f(0.0f,1.0f,0.0f);
+                glVertex3f( 1.0f,-1.0f,-1.0f);
+                glVertex3f(-1.0f,-1.0f,-1.0f);
+                glVertex3f(-1.0f, 1.0f,-1.0f);
+                glVertex3f( 1.0f, 1.0f,-1.0f);
+            //}
+            //Left
+            //if (x < -1){
+                glColor3f(1.0f,0.5f,0.0f);
+                glVertex3f(-1.0f, 1.0f,1.0f);
+                glVertex3f(-1.0f, 1.0f,-1.0f);
+                glVertex3f(-1.0f,-1.0f,-1.0f);
+                glVertex3f(-1.0f,-1.0f, 1.0f);
+            //}
+            //Right
+            //if (x > 1){
+                glColor3f(0.5f,0.0f,0.6f);
+                glVertex3f( 1.0f, 1.0f,-1.0f);
+                glVertex3f( 1.0f, 1.0f, 1.0f);
+                glVertex3f( 1.0f,-1.0f, 1.0f);
+                glVertex3f( 1.0f,-1.0f,-1.0f);
+                
+            //}
+            glEnd();
+        }
+        catch(Exception e){
+        
+        }
+    }
+    
+    private void renderEdges(){
+        // draw lines
+        try{
+            glBegin(GL_LINE_LOOP);
+            //Top
+            glColor3f(0.0f,0.0f,0.0f);
+            glVertex3f( 1.0f, 1.0f,-1.0f);
+            glVertex3f(-1.0f, 1.0f,-1.0f);
+            glVertex3f(-1.0f, 1.0f, 1.0f);
+            glVertex3f( 1.0f, 1.0f, 1.0f);
+            glEnd();
+            glBegin(GL_LINE_LOOP);
+            //Bottom
+            glVertex3f( 1.0f,-1.0f, 1.0f);
+            glVertex3f(-1.0f,-1.0f, 1.0f);
+            glVertex3f(-1.0f,-1.0f,-1.0f);
+            glVertex3f( 1.0f,-1.0f,-1.0f);
+            glEnd();
+            glBegin(GL_LINE_LOOP);
+            //Front
+            glVertex3f( 1.0f, 1.0f, 1.0f);
+            glVertex3f(-1.0f, 1.0f, 1.0f);
+            glVertex3f(-1.0f,-1.0f, 1.0f);
+            glVertex3f( 1.0f,-1.0f, 1.0f);
+            glEnd();
+            glBegin(GL_LINE_LOOP);
+            //Back
+            glVertex3f( 1.0f,-1.0f,-1.0f);
+            glVertex3f(-1.0f,-1.0f,-1.0f);
+            glVertex3f(-1.0f, 1.0f,-1.0f);
+            glVertex3f( 1.0f, 1.0f,-1.0f);
+            glEnd();
+            glBegin(GL_LINE_LOOP);
+            //Left
+            glVertex3f(-1.0f, 1.0f, 1.0f);
+            glVertex3f(-1.0f, 1.0f,-1.0f);
+            glVertex3f(-1.0f,-1.0f,-1.0f);
+            glVertex3f(-1.0f,-1.0f, 1.0f);
+            glEnd();
+            glBegin(GL_LINE_LOOP);
+            //Right
+            glVertex3f( 1.0f, 1.0f,-1.0f);
+            glVertex3f( 1.0f, 1.0f, 1.0f);
+            glVertex3f( 1.0f,-1.0f, 1.0f);
+            glVertex3f( 1.0f,-1.0f,-1.0f);
+            glEnd();
+        }
+        catch(Exception e){
+        
+        }
+    }
+
+        
+}
