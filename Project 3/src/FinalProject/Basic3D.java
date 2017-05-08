@@ -18,15 +18,14 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import static org.lwjgl.opengl.GL11.*;
 import org.lwjgl.util.glu.GLU;
-/**
- *
- * @author Computer
- */
+
 
 public class Basic3D {
     private FPCameraController fp = new FPCameraController(0f,0f,0f);
     private DisplayMode displayMode;
     
+    //method: start
+    //purpose: creates window
     public void start() {
         try {
             createWindow();
@@ -36,7 +35,9 @@ public class Basic3D {
         catch (Exception e) {
             e.printStackTrace();
         }
-        }
+    }
+    //method: createWindow
+    //purpose: sets up window parameters
     private void createWindow() throws Exception{
         Display.setFullscreen(false);
         DisplayMode d[] =
@@ -51,6 +52,8 @@ public class Basic3D {
         Display.setTitle("Hey Mom! I am using”+“OpenGL!!!");
         Display.create();
     }
+    //method: initGL
+    //purpose: initiates metrices and other specifications
     private void initGL() {
         glEnable(GL_DEPTH_TEST);
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -61,9 +64,11 @@ public class Basic3D {
         glMatrixMode(GL_MODELVIEW);
         glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
     }
+    //method: main
+    //purpose: driver
     public static void main(String[] args) {
         Basic3D basic = new Basic3D();
         basic.start();
-}
+    }
     
 }
