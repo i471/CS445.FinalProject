@@ -21,15 +21,17 @@ import org.lwjgl.util.glu.GLU;
 
 
 public class Basic3D {
-    private FPCameraController fp = new FPCameraController(0f,0f,0f);
+    private FPCameraController fp;
     private DisplayMode displayMode;
     
     //method: start
     //purpose: creates window
     public void start() {
         try {
+            
             createWindow();
             initGL();
+            fp = new FPCameraController(0f,0f,0f);
             fp.gameLoop();//render();
         } 
         catch (Exception e) {
@@ -49,13 +51,18 @@ public class Basic3D {
             }
         }
         Display.setDisplayMode(displayMode);
-        Display.setTitle("Hey Mom! I am using”+“OpenGL!!!");
+        Display.setTitle("Minecraft???");
         Display.create();
     }
     //method: initGL
     //purpose: initiates metrices and other specifications
     private void initGL() {
+        glEnable(GL_TEXTURE_2D);
+        glEnableClientState (GL_TEXTURE_COORD_ARRAY);
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glEnableClientState(GL_COLOR_ARRAY);
         glEnable(GL_DEPTH_TEST);
+
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
