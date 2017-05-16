@@ -35,6 +35,7 @@ public class FPCameraController {
     private float yaw = 0.0f; //the rotation around the Y axis of the camera
     private float pitch = 0.0f; //the rotation around the X axis of the camera
     private Vector3Float me;
+    private Chunk myChunk = new Chunk(0,0,0);
     //method: FPCameraController
     //purpose: constructor
     public FPCameraController(float x, float y, float z){ //instantiate position Vector3f to the x y z params.
@@ -175,7 +176,8 @@ public class FPCameraController {
         glLoadIdentity();//set the modelview matrix back to the identity
         camera.lookThrough(); //look through the camera before you draw anything
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        renderCube();
+        myChunk.render();
+        //renderCube();
         Display.update();
         Display.sync(60);
         }
