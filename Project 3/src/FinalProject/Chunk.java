@@ -38,7 +38,6 @@ public class Chunk {
     public void render(){
         
         glPushMatrix();
-        glPushMatrix();
         glBindBuffer(GL_ARRAY_BUFFER,VBOVertexHandle);
         glVertexPointer(3, GL_FLOAT, 0, 0L);
         glBindBuffer(GL_ARRAY_BUFFER,VBOColorHandle);
@@ -147,6 +146,7 @@ public class Chunk {
     public Chunk(int startX, int startY, int startZ) {
         try{
             texture = TextureLoader.getTexture("PNG",ResourceLoader.getResourceAsStream("terrain.png"));
+            //C:\\Users\\Nathan\\Documents\\School\\CS445\\CS445.FinalProject-master\\Project 3\\
         }
         catch(Exception e){
             System.out.print("ER-ROAR!");
@@ -158,15 +158,24 @@ public class Chunk {
         for (int x = 0; x < CHUNK_SIZE; x++) {
             for (int y = 0; y < CHUNK_SIZE; y++) {
                 for (int z = 0; z < CHUNK_SIZE; z++) {
-                    if(r.nextFloat()>0.7f){
+                    if(r.nextFloat()>0.8f){
                         Blocks[x][y][z] = new
                         Block(Block.BlockType.BlockType_Grass);
-                    }else if(r.nextFloat()>0.4f){
+                    }else if(r.nextFloat()>0.6f){
                         Blocks[x][y][z] = new
                         Block(Block.BlockType.BlockType_Dirt);
-                    }else if(r.nextFloat()>0.2f){
+                    }else if(r.nextFloat()>0.4f){
                         Blocks[x][y][z] = new
                         Block(Block.BlockType.BlockType_Water);
+                    }else if(r.nextFloat()>0.2f){
+                        Blocks[x][y][z] = new
+                        Block(Block.BlockType.BlockType_Stone);
+                    }else if(r.nextFloat()>0.1f){
+                        Blocks[x][y][z] = new
+                        Block(Block.BlockType.BlockType_Bedrock);
+                    }else if(r.nextFloat()>0.0f){
+                        Blocks[x][y][z] = new
+                        Block(Block.BlockType.BlockType_Sand);
                     }else{
                         Blocks[x][y][z] = new
                         Block(Block.BlockType.BlockType_Default);
@@ -187,43 +196,64 @@ public class Chunk {
     public static float[] createTexCube(float x, float y, Block block) {
         float offset = (1024f/16)/1024f;
         switch (block.GetID()) {
+            case 0:
+                return blockTexture(x,y,offset,3,10,4,1,3,1);
             case 1:
-            return new float[] {
-            // BOTTOM QUAD(DOWN=+Y)
-            x + offset*3, y + offset*10,
-            x + offset*2, y + offset*10,
-            x + offset*2, y + offset*9,
-            x + offset*3, y + offset*9,
-            // TOP!
-            x + offset*3, y + offset*1,
-            x + offset*2, y + offset*1,
-            x + offset*2, y + offset*0,
-            x + offset*3, y + offset*0,
-            // FRONT QUAD
-            x + offset*3, y + offset*0,
-            x + offset*4, y + offset*0,
-            x + offset*4, y + offset*1, 
-            x + offset*3, y + offset*1,
-            // BACK QUAD
-            x + offset*4, y + offset*1,
-            x + offset*3, y + offset*1,
-            x + offset*3, y + offset*0,
-            x + offset*4, y + offset*0,
-            // LEFT QUAD
-            x + offset*3, y + offset*0,
-            x + offset*4, y + offset*0,
-            x + offset*4, y + offset*1,
-            x + offset*3, y + offset*1,
-            // RIGHT QUAD
-            x + offset*3, y + offset*0,
-            x + offset*4, y + offset*0,
-            x + offset*4, y + offset*1,
-            x + offset*3, y + offset*1};
+                return blockTexture(x,y,offset,3,2,3,2,3,2);
+            case 2:
+                return blockTexture(x,y,offset,15,13,15,13,15,13);
+            case 3:
+                return blockTexture(x,y,offset,3,1,3,1,3,1);
+            case 4:
+                return blockTexture(x,y,offset,2,1,2,1,2,1);
+            case 5:
+                return blockTexture(x,y,offset,2,2,2,2,2,2);
+            case 6:
+                return blockTexture(x,y,offset,10,10,10,10,10,10);
             default:
                 System.out.println("not found");
                 return null;
         }
 
+    }
+    
+    //method: blockTexture
+    //purpose: returns the float array that will give the correct textures for a block.
+    //input: first 3: input from calling method, xTop and yTop: coordinates of the square in the png file to get the texture from for the top of the block
+    //xSide,ySide and xBottom and yBottom: simmilar to xTop and yTop
+    //coordinates: the first square in the file is on the top left corner. location: (1,1)
+    public static float[] blockTexture(float x, float y, float offset, int xTop, int yTop, int xSide, int ySide, int xBottom, int yBottom){
+        return new float[] {
+            // BOTTOM QUAD(DOWN=+Y)
+            x + offset*xTop, y + offset*yTop,
+            x + offset*(xTop-1), y + offset*yTop,
+            x + offset*(xTop-1), y + offset*(yTop-1),
+            x + offset*xTop, y + offset*(yTop-1),
+            // TOP!
+            x + offset*xBottom, y + offset*yBottom,
+            x + offset*(xBottom-1), y + offset*yBottom,
+            x + offset*(xBottom-1), y + offset*(yBottom-1),
+            x + offset*xBottom, y + offset*(yBottom-1),
+            // FRONT QUAD
+            x + offset*xSide, y + offset*(ySide-1),
+            x + offset*(xSide-1), y + offset*(ySide-1),
+            x + offset*(xSide-1), y + offset*ySide,
+            x + offset*xSide, y + offset*ySide,
+            // BACK QUAD
+            x + offset*xSide, y + offset*ySide,
+            x + offset*(xSide-1), y + offset*ySide,
+            x + offset*(xSide-1), y + offset*(ySide-1),
+            x + offset*xSide, y + offset*(ySide-1),
+            // LEFT QUAD
+            x + offset*xSide, y + offset*(ySide-1),
+            x + offset*(xSide-1), y + offset*(ySide-1),
+            x + offset*(xSide-1), y + offset*ySide,
+            x + offset*xSide, y + offset*ySide,
+            // RIGHT QUAD
+            x + offset*xSide, y + offset*(ySide-1),
+            x + offset*(xSide-1), y + offset*(ySide-1),
+            x + offset*(xSide-1), y + offset*ySide,
+            x + offset*xSide, y + offset*ySide};
     }
     
     
