@@ -27,6 +27,7 @@ public class Basic3D {
     //method: start
     //purpose: creates window
     public void start() {
+        System.out.println("Press ENTER to create a new world.");
         try {
             
             createWindow();

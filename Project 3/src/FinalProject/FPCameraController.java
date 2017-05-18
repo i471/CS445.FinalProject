@@ -17,9 +17,12 @@
     Space Bar:Increase Elevation
     Left Shift: Decrease Elevation
     Esc: Exit Game
+    1: Regenerate World
+    * 
 *
 ****************************************************************/
 package FinalProject;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.input.Keyboard;
@@ -120,9 +123,9 @@ public class FPCameraController {
     
     //method: gameLoop
     //purpose: processes controls and graphics every frame
-    public void gameLoop(){
+    public void gameLoop() throws InterruptedException{
     
-        FPCameraController camera = new FPCameraController(0, 0, 0);
+        FPCameraController camera = new FPCameraController(5, 5, 5);
         float dx;
         float dy;
         //float dt = 0.0f; //length of frame
@@ -171,12 +174,15 @@ public class FPCameraController {
                 camera.moveDown(movementSpeed);
             }
            
-
-
+            if (Keyboard.isKeyDown(Keyboard.KEY_RETURN)) {
+                myChunk = new Chunk(0,0,0);
+            }
+      
         glLoadIdentity();//set the modelview matrix back to the identity
         camera.lookThrough(); //look through the camera before you draw anything
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         myChunk.render();
+       
         //renderCube();
         Display.update();
         Display.sync(60);
